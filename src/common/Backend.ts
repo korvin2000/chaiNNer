@@ -18,7 +18,6 @@ import {
     SchemaId,
     Version,
 } from './common-types';
-import { assertNever } from './util';
 
 export interface BackendSuccessResponse {
     type: 'success';
@@ -206,7 +205,6 @@ export class Backend {
                 if (error instanceof axios.AxiosError) {
                     throw error;
                 }
-                assertNever(error);
             }
             if (ServerError.isJson(error)) {
                 throw ServerError.fromJson(error);

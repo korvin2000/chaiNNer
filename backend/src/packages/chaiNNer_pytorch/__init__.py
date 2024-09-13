@@ -1,5 +1,6 @@
 import os
-
+import subprocess
+import sys
 from sanic.log import logger
 
 from api import GB, KB, MB, Dependency, add_package
@@ -21,6 +22,9 @@ else:
         f"{general} It is the most widely-used upscaling architecture. However, it does"
         " not support AMD GPUs."
     )
+
+def install_github_dependency(repo_url):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "-U", f"git+{repo_url}"])
 
 
 def get_pytorch():
@@ -98,19 +102,22 @@ package = add_package(
         Dependency(
             display_name="Spandrel",
             pypi_name="spandrel",
-            version="0.3.4",
+            version="0.3.5",
             size_estimate=264 * KB,
         ),
         Dependency(
             display_name="Spandrel extra architectures",
             pypi_name="spandrel_extra_arches",
-            version="0.1.1",
+            version="0.1.2",
             size_estimate=83 * KB,
         ),
     ],
     icon="PyTorch",
     color="#DD6B20",
 )
+
+install_github_dependency("https://github.com/korvin2000/spandrel.git@main#subdirectory=libs/spandrel")
+install_github_dependency("https://github.com/korvin2000/spandrel.git@main#subdirectory=libs/spandrel_extra_arches")
 
 pytorch_category = package.add_category(
     name="PyTorch",
