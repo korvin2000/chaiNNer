@@ -590,7 +590,10 @@ export class FunctionInstance {
 
     static fromPartialInputs(
         definition: FunctionDefinition,
-        partialInputs: (inputId: InputId) => NonNeverType | undefined,
+        partialInputs: (inputId: InputId) => {
+            output: NonNeverType | undefined;
+            sequence: NonNeverType | undefined;
+        },
         outputNarrowing: ReadonlyMap<OutputId, Type> = EMPTY_MAP,
         sequenceOutputNarrowing: ReadonlyMap<IterOutputId, Type> = EMPTY_MAP,
         passthrough?: PassthroughInfo
@@ -622,13 +625,20 @@ export class FunctionInstance {
             if (type.type !== 'never' && item.type === 'Input') {
                 const { id } = item.input;
                 const assignedType = partialInputs(id);
-                if (assignedType) {
-                    const converted = definition.convertInput(id, assignedType);
+                if (assignedType.output) {
+                    const converted = definition.convertInput(id, assignedType.output);
                     const newType = assign(converted, type).assignedType;
                     if (newType.type === 'never') {
-                        inputErrors.push({ inputId: id, inputType: type, assignedType });
+                        inputErrors.push({
+                            inputId: id,
+                            inputType: type,
+                            assignedType: assignedType.output,
+                        });
                     }
                     type = newType;
+                }
+                if (assignedType.sequence) {
+                    inputLengths.set(id, assignedType.sequence);
                 }
             }
 
@@ -708,6 +718,11 @@ export class FunctionInstance {
                 if (item.type === 'Output') {
                     outputs.set(item.output.id, type);
                     scope.assignParameter(getOutputParamName(item.output.id), type);
+                    if (definition.schema.kind === 'regularNode' && inputLengths.size > 0) {
+                      // This only works because we assume sequences from a single node are all the same size.
+                      // In the future, this might not be the case.
+                      outputLengths.set(item.output.id, [...inputLengths.values()][0]);
+                    }
                 } else {
                     for (const id of item.iterOutput.outputs) {
                         outputLengths.set(id, type);
