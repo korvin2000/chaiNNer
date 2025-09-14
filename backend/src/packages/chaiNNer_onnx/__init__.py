@@ -2,7 +2,7 @@ from sanic.log import logger
 
 from api import KB, MB, Dependency, add_package
 from gpu import nvidia
-from system import is_arm_mac
+from system import is_arm_mac, is_windows
 
 general = "ONNX uses .onnx models to upscale images."
 conversion = "It also helps to convert between PyTorch and NCNN."
@@ -15,7 +15,7 @@ else:
         f"{general} {conversion} It is fastest when CUDA is supported. If TensorRT is"
         " installed on the system, it can also be configured to use that."
     )
-    inst_hint = f"{general} It does not support AMD GPUs."
+    inst_hint = f"{general} It does not support AMD GPUs, in linux."
 
 
 def get_onnx_runtime():
@@ -23,17 +23,24 @@ def get_onnx_runtime():
         return Dependency(
             display_name="ONNX Runtime (GPU)",
             pypi_name="onnxruntime-gpu",
-            version="1.17.1",
-            size_estimate=120 * MB,
+            version="1.19.2",
+            size_estimate=226 * MB,
             import_name="onnxruntime",
             extra_index_url="https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/",
+        )
+    elif is_windows:
+        return Dependency(
+            display_name="ONNX Runtime (DirectMl)",
+            pypi_name="onnxruntime-directml",
+            version="1.17.1",
+            size_estimate=15 * MB,
         )
     else:
         return Dependency(
             display_name="ONNX Runtime",
             pypi_name="onnxruntime",
-            version="1.17.1",
-            size_estimate=6 * MB,
+            version="1.19.2",
+            size_estimate=13 * MB,
         )
 
 
@@ -46,21 +53,21 @@ package = add_package(
         Dependency(
             display_name="ONNX",
             pypi_name="onnx",
-            version="1.16.0",
-            size_estimate=12 * MB,
+            version="1.17.0",
+            size_estimate=16 * MB,
         ),
         Dependency(
             display_name="ONNX Optimizer",
             pypi_name="onnxoptimizer",
             version="0.3.13",
-            size_estimate=300 * KB,
+            size_estimate=700 * KB,
         ),
         get_onnx_runtime(),
         Dependency(
             display_name="Protobuf",
             pypi_name="protobuf",
-            version="4.24.2",
-            size_estimate=500 * KB,
+            version="5.29.2",
+            size_estimate=300 * KB,
         ),
     ],
     icon="ONNX",
