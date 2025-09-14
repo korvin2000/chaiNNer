@@ -18,20 +18,20 @@ interface PythonDownload {
 
 const downloads: Record<SupportedPlatform, PythonDownload> = {
     linux: {
-        url: 'https://github.com/indygreg/python-build-standalone/releases/download/20230826/cpython-3.11.5+20230826-x86_64-unknown-linux-gnu-install_only.tar.gz',
-        version: '3.11.5',
-        path: 'python/bin/python3.11',
+        url: 'https://github.com/astral-sh/python-build-standalone/releases/download/20250902/cpython-3.13.7+20250902-x86_64-unknown-linux-gnu-install_only.tar.gz',
+        version: '3.13.7',
+        path: 'python/bin/python3.13',
     },
     darwin: {
         url: isArmMac
-            ? 'https://github.com/indygreg/python-build-standalone/releases/download/20230826/cpython-3.11.5+20230826-aarch64-apple-darwin-install_only.tar.gz'
-            : 'https://github.com/indygreg/python-build-standalone/releases/download/20230826/cpython-3.11.5+20230826-x86_64-apple-darwin-install_only.tar.gz',
-        version: '3.11.5',
-        path: 'python/bin/python3.11',
+            ? 'https://github.com/astral-sh/python-build-standalone/releases/download/20250902/cpython-3.13.7+20250902-aarch64-apple-darwin-install_only.tar.gz'
+            : 'https://github.com/astral-sh/python-build-standalone/releases/download/20250902/cpython-3.13.7+20250902-x86_64-apple-darwin-install_only.tar.gz',
+        version: '3.13.7',
+        path: 'python/bin/python3.13',
     },
     win32: {
-        url: 'https://github.com/indygreg/python-build-standalone/releases/download/20230826/cpython-3.11.5+20230826-x86_64-pc-windows-msvc-shared-install_only.tar.gz',
-        version: '3.11.5',
+        url: 'https://github.com/astral-sh/python-build-standalone/releases/download/20250902/cpython-3.13.7+20250902-x86_64-pc-windows-msvc-install_only.tar.gz',
+        version: '3.13.7',
         path: 'python/python.exe',
     },
 };
