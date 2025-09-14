@@ -99,7 +99,7 @@
     "stylelint-prettier": "^2.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
-    "vite": "^5.2.9",
+    "vite": "^5.4.6",
     "vitest": "^1.4.0"
   },
   "dependencies": {
@@ -112,7 +112,7 @@
     "@fontsource/open-sans": "^4.5.10",
     "@octokit/rest": "^19.0.13",
     "@react-nano/use-event-source": "^0.12.0",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "bezier-js": "^6.1.4",
     "chakra-ui-markdown-renderer": "^4.1.0",
     "chokidar": "^3.5.3",
@@ -147,7 +147,7 @@
     "reactflow": "^11.10.1",
     "rregex": "^1.10.11",
     "semver": "^7.3.7",
-    "systeminformation": "^5.21.7",
+    "systeminformation": "^5.23.8",
     "use-context-selector": "^1.4.0",
     "use-debounce": "^8.0.1",
     "uuid": "^8.3.2",

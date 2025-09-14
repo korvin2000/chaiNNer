@@ -33,14 +33,14 @@ def get_pytorch():
             Dependency(
                 display_name="PyTorch",
                 pypi_name="torch",
-                version="2.1.2",
+                version="2.7.0",
                 size_estimate=55.8 * MB,
                 auto_update=False,
             ),
             Dependency(
                 display_name="TorchVision",
                 pypi_name="torchvision",
-                version="0.16.2",
+                version="0.22.0",
                 size_estimate=1.3 * MB,
                 auto_update=False,
             ),
@@ -50,10 +50,10 @@ def get_pytorch():
             Dependency(
                 display_name="PyTorch",
                 pypi_name="torch",
-                version="2.1.2+cu121" if nvidia.is_available else "2.1.2",
+                version="2.7.0+cu128" if nvidia.is_available else "2.7.0",
                 size_estimate=2 * GB if nvidia.is_available else 140 * MB,
                 extra_index_url=(
-                    "https://download.pytorch.org/whl/cu121"
+                    "https://download.pytorch.org/whl/cu128"
                     if nvidia.is_available
                     else "https://download.pytorch.org/whl/cpu"
                 ),
@@ -62,10 +62,10 @@ def get_pytorch():
             Dependency(
                 display_name="TorchVision",
                 pypi_name="torchvision",
-                version="0.16.2+cu121" if nvidia.is_available else "0.16.2",
+                version="0.22.0+cu128" if nvidia.is_available else "0.22.0",
                 size_estimate=2 * MB if nvidia.is_available else 800 * KB,
                 extra_index_url=(
-                    "https://download.pytorch.org/whl/cu121"
+                    "https://download.pytorch.org/whl/cu128"
                     if nvidia.is_available
                     else "https://download.pytorch.org/whl/cpu"
                 ),
@@ -102,13 +102,13 @@ package = add_package(
         Dependency(
             display_name="Spandrel",
             pypi_name="spandrel",
-            version="0.3.5",
+            version="0.4.2",
             size_estimate=264 * KB,
         ),
         Dependency(
             display_name="Spandrel extra architectures",
             pypi_name="spandrel_extra_arches",
-            version="0.1.2",
+            version="0.2.1",
             size_estimate=83 * KB,
         ),
     ],
